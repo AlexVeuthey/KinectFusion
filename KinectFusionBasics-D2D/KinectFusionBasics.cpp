@@ -1,13 +1,13 @@
-ï»¿//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // <copyright file="KinectFusionBasics.cpp" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
 
 // System includes
-#include "stdafx.h"
+#include "stdafx.h" // VISUAL C++ SPECIFIC!
 #include <string>
-#include <strsafe.h>
+#include <strsafe.h> // WINDOWS SPECIFIC?
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <new>
@@ -559,7 +559,7 @@ HRESULT CKinectFusionBasics::InitializeKinectFusion()
 
     // Set an introductory message
     SetStatusMessage(
-        L"Click â€˜Near Modeâ€™ to change sensor range, and â€˜Reset Reconstructionâ€™ to clear!");
+        L"Click ‘Near Mode’ to change sensor range, and ‘Reset Reconstruction’ to clear!");
 
     return hr;
 }
