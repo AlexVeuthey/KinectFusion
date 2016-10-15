@@ -31,7 +31,7 @@ roiR = [-0.04 1.00
     -1.00 1.00
     -1.00 1.00];
 
-bunnyCropped = rotateAndCropPointCloud( bunny, 1, -pi/6, roiF );
+bunnyCropped = rotateAndCropPointCloud( bunny, 2, pi/6, roiR );
 
 figure(figN)
 figN = figN+1;
