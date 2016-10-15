@@ -2,6 +2,11 @@
 
 % This section will setup Matlab to work with the folder architecture used.
 
+addpath(genpath('surface_prediction'));
+addpath(genpath('reconstruction'));
+addpath(genpath('pose_estimation'));
+addpath(genpath('measurement'));
+
 %% 1. Input section
 
 % This section will mainly consist of setting up arguments (size,

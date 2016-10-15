@@ -1,0 +1,13 @@
+function [ outputCloud ] = rotatePointCloud( inputCloud, axis, theta )
+%ROTATEPOINTCLOUD Rotates a point cloud along an axis
+%   Detailed explanation goes here
+
+rot = [1 0 0 0 
+    0 cos(theta) -sin(theta) 0
+    0 sin(theta) cos(3) 0
+    0 0 0 1];
+
+transform = affine3d(rot);
+bunny = pctransform(bunny,transform);
+
+end
