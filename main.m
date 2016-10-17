@@ -16,11 +16,23 @@ addpath(genpath('measurement'));
 % arguments, particularly the choice of the point-cloud file(s) to load as
 % well as possible additionnal constraints.
 
+ptCloud = pcread('bun_zipper.ply');
+
+rot = [1 0 0 0 
+    0 cos(3*pi/2) -sin(3*pi/2) 0
+    0 sin(3*pi/2) cos(3*pi/2) 0
+    0 0 0 1];
+
+transform = affine3d(rot);
+ptCloud = pctransform(ptCloud,transform);
+
 %% 2. Measurement section
 
 % This section will call the methods of the measurement folder, in order to
 % retrieve the measurements (mostly vertex and normal information) of the
 % point cloud file(s) present in the input section.
+
+[ normal_map, vertex_map ] = measurement(ptCloud, 0);
 
 %% 3. Pose estimation section
 
