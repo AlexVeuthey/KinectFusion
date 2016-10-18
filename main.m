@@ -7,6 +7,9 @@ addpath(genpath('reconstruction'));
 addpath(genpath('pose_estimation'));
 addpath(genpath('measurement'));
 
+addpath(genpath('utils'));
+addpath(genpath('data'));
+
 %% 1. Input section
 
 % This section will mainly consist of setting up arguments (size,
@@ -16,16 +19,19 @@ addpath(genpath('measurement'));
 % arguments, particularly the choice of the point-cloud file(s) to load as
 % well as possible additionnal constraints.
 
-ptCloud = pcread('bun_zipper.ply');
+A_ptCloud = pcread('bun_zipper.ply');
 
 rot = [
-    1 0 0 0 
-    0 cos(3*pi/2) -sin(3*pi/2) 0
-    0 sin(3*pi/2) cos(3*pi/2) 0
-    0 0 0 1];
+    1   0               0               0 
+    0   cos(3*pi/2)     -sin(3*pi/2)    0
+    0   sin(3*pi/2)     cos(3*pi/2)     0
+    0   0               0               1
+    ];
 
 transform = affine3d(rot);
-ptCloud = pctransform(ptCloud,transform);
+A_ptCloud = pctransform(A_ptCloud,transform);
+
+clear rot transform
 
 %% 2. Measurement section
 
@@ -33,7 +39,7 @@ ptCloud = pctransform(ptCloud,transform);
 % retrieve the measurements (mostly vertex and normal information) of the
 % point cloud file(s) present in the input section.
 
-[ normal_map, vertex_map ] = measurement(ptCloud, 1);
+[ B_normal_maps, B_vertex_maps ] = measurement(A_ptCloud, 1);
 
 %% 3. Pose estimation section
 

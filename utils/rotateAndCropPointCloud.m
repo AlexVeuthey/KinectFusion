@@ -8,14 +8,18 @@ if nargin < 4
         -inf inf];
 end
 
-rot = [1 0 0 0 
-    0 1 0 0 
-    0 0 1 0 
-    0 0 0 1];
-rotInv = [1 0 0 0
-    0 1 0 0 
-    0 0 1 0 
-    0 0 0 1];
+rot = [
+    1 0 0 0
+    0 1 0 0
+    0 0 1 0
+    0 0 0 1
+    ];
+rotInv = [
+    1 0 0 0
+    0 1 0 0
+    0 0 1 0
+    0 0 0 1
+    ];
 
 if axis == 1 % X-roll
     rot = [1 0 0 0
@@ -37,11 +41,11 @@ elseif axis == 2 % Y-roll
         0 0 0 1];
 elseif axis == 3 % Z-roll
     rot = [cos(theta) -sin(theta) 0 0
-        sin(theta) cos(theta) 0 0 
+        sin(theta) cos(theta) 0 0
         0 0 1 0
         0 0 0 1];
     rotInv = [cos(-theta) -sin(-theta) 0 0
-        sin(-theta) cos(-theta) 0 0 
+        sin(-theta) cos(-theta) 0 0
         0 0 1 0
         0 0 0 1];
 end
