@@ -1,5 +1,5 @@
 function [ normal_map, vertex_map ] = measurement( ptCloud, show_normals, spacing )
-%MEASUREMENT Computer the normal map and vertex map of a point cloud
+%MEASUREMENT Compute the normal map and vertex map of a point cloud
 %   Can display the normal map on the vertex map when passing show_normals
 %   = 1. 
 %   Can change the spacing between displayed points by passing a

@@ -18,7 +18,8 @@ addpath(genpath('measurement'));
 
 ptCloud = pcread('bun_zipper.ply');
 
-rot = [1 0 0 0 
+rot = [
+    1 0 0 0 
     0 cos(3*pi/2) -sin(3*pi/2) 0
     0 sin(3*pi/2) cos(3*pi/2) 0
     0 0 0 1];
@@ -32,7 +33,7 @@ ptCloud = pctransform(ptCloud,transform);
 % retrieve the measurements (mostly vertex and normal information) of the
 % point cloud file(s) present in the input section.
 
-[ normal_map, vertex_map ] = measurement(ptCloud, 0);
+[ normal_map, vertex_map ] = measurement(ptCloud, 1);
 
 %% 3. Pose estimation section
 
