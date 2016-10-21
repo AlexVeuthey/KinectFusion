@@ -51,6 +51,10 @@ clear rot transform
 % Note: the ICP algorithms might already have been implemented somewhere
 % else that can be used...
 
+ptCloud = pcread('kinect1.ply');
+
+pcshow(ptCloud); xlabel('x'); ylabel('y'); zlabel('z');
+
 %% 4. Reconstruction section
 
 % Aggregation of the surface measurements (with the help of the camera pose

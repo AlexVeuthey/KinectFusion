@@ -32,11 +32,15 @@ ylabel(player.Axes,'Y (m)');
 zlabel(player.Axes,'Z (m)');
 
 % acquire 500 frames
-for i = 1:50
+for i = 1:25
    colorImage = step(colorDevice);  
    depthImage = step(depthDevice);
  
    ptCloud = pcfromkinect(depthDevice,depthImage,colorImage);
+   
+   str = strcat('kinect', num2str(i));
+   
+   pcwrite(ptCloud, str, 'PLYFormat', 'binary');
  
    view(player,ptCloud);
 end
