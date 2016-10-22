@@ -25,7 +25,7 @@ zlimits = [0 1];
 % player = pcplayer(xlimits, ylimits, zlimits);
 
 player = pcplayer(ptCloud.XLimits,ptCloud.YLimits,ptCloud.ZLimits,...
-	'VerticalAxis','z','VerticalAxisDir','down');
+	'VerticalAxis','y','VerticalAxisDir','down');
 
 xlabel(player.Axes,'X (m)');
 ylabel(player.Axes,'Y (m)');

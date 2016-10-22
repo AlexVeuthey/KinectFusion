@@ -10,6 +10,8 @@ addpath(genpath('measurement'));
 addpath(genpath('utils'));
 addpath(genpath('data'));
 
+batchN = 1;
+
 %% 1. Input section
 
 % This section will mainly consist of setting up arguments (size,
@@ -51,9 +53,13 @@ clear rot transform
 % Note: the ICP algorithms might already have been implemented somewhere
 % else that can be used...
 
-ptCloud = pcread('kinect1.ply');
+pathName = batchAndNumberToPath(batchN,1);
 
-pcshow(ptCloud); xlabel('x'); ylabel('y'); zlabel('z');
+ptCloud = pcread(pathName);
+
+pcshow(ptCloud,'verticalAxis','Y'); xlabel('x'); ylabel('y'); zlabel('z');
+
+clear pathName
 
 %% 4. Reconstruction section
 
