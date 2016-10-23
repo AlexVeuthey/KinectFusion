@@ -10,7 +10,7 @@ addpath(genpath('measurement'));
 addpath(genpath('utils'));
 addpath(genpath('data'));
 
-batchN = 1;
+A_batchN = 1;
 
 %% 1. Input section
 
@@ -21,7 +21,7 @@ batchN = 1;
 % arguments, particularly the choice of the point-cloud file(s) to load as
 % well as possible additionnal constraints.
 
-A_ptCloud = pcread('bun_zipper.ply');
+B_ptCloud = pcread('bun_zipper.ply');
 
 rot = [
     1   0               0               0 
@@ -31,7 +31,7 @@ rot = [
     ];
 
 transform = affine3d(rot);
-A_ptCloud = pctransform(A_ptCloud,transform);
+B_ptCloud = pctransform(B_ptCloud,transform);
 
 clear rot transform
 
@@ -41,7 +41,7 @@ clear rot transform
 % retrieve the measurements (mostly vertex and normal information) of the
 % point cloud file(s) present in the input section.
 
-[ B_normal_maps, B_vertex_maps ] = measurement(A_ptCloud, 1);
+[ C_normal_maps, C_vertex_maps ] = measurement(B_ptCloud, 1);
 
 %% 3. Pose estimation section
 
@@ -50,16 +50,27 @@ clear rot transform
 % point-clouds. The methods will use (maybe different) ICP algorithm(s) to
 % perform this task.
 
-% Note: the ICP algorithms might already have been implemented somewhere
-% else that can be used...
+% JUST A TEST TO SHOW A PTCLOUD FROM KINECT DATA
+% pathName = batchAndNumberToPath(batchN,25);
+% 
+% B_ptCloud = pcread(pathName);
+% 
+% pcshow(B_ptCloud,'verticalAxis','Y'); xlabel('x'); ylabel('y'); zlabel('z');
+% 
+% clear pathName
 
-pathName = batchAndNumberToPath(batchN,1);
+% TAKES A LOT OF TIME
+% batch = batch2cell(A_batchN, 25);
+% 
+% [D_transforms, D_fused] = pose_estimation(batch);
+% 
+% clear batch
 
-ptCloud = pcread(pathName);
+% Saving the fused depth-map
+pcwrite(D_fused, 'D_fused.ply');
 
-pcshow(ptCloud,'verticalAxis','Y'); xlabel('x'); ylabel('y'); zlabel('z');
-
-clear pathName
+% Saving the transforms data from data-to-frame
+save('D_transforms', 'D_transforms');
 
 %% 4. Reconstruction section
 
