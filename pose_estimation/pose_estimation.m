@@ -17,7 +17,8 @@ transforms = cell(size,1);
 [transforms{1}, newData] = alignPointClouds(batch{1}, batch{2}, metric);
 
 for i = 2:size
-    [transforms{i}, newData] = alignPointClouds(newData, batch{i}, metric);
+    [transforms{i}, temp] = alignPointClouds(newData, batch{i}, metric);
+    newData = pcmerge(newData, temp);
 end
 
 end

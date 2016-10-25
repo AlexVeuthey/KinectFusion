@@ -66,11 +66,22 @@ clear rot transform
 % 
 % clear batch
 
-% Saving the fused depth-map
-pcwrite(D_fused, 'D_fused.ply');
+% % Saving the fused depth-map
+% pcwrite(D_fused, 'D_fused.ply');
+% 
+% % Saving the transforms data from data-to-frame
+% save('D_transforms', 'D_transforms');
 
-% Saving the transforms data from data-to-frame
-save('D_transforms', 'D_transforms');
+k1 = pcread('kinect25.ply');
+k2 = pcread('kinect1.ply');
+
+fused = pcread('D_fused.ply');
+figure(1);
+pcshow(fused);
+figure(2);
+pcshow(k1);
+figure(3);
+pcshow(k2);
 
 %% 4. Reconstruction section
 
