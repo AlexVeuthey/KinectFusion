@@ -31,8 +31,12 @@ roiR = [-0.04 1.00
     -1.00 1.00
     -1.00 1.00];
 
-bunnyCropped = rotateAndCropPointCloud( bunny, 2, pi/6, roiR );
+bunnyR = rotateAndCropPointCloud( bunny, 2, pi/6, roiR );
+bunnyF = rotateAndCropPointCloud( bunny, 1, pi/12, roiF);
 
-figure(figN)
-figN = figN+1;
-pcshow(bunnyCropped); xlabel('X'); ylabel('Y'); zlabel('Z');
+% figure(figN)
+% figN = figN+1;
+% pcshow(bunnyR); xlabel('X'); ylabel('Y'); zlabel('Z');
+% 
+% pcwrite(bunnyF, 'bunnyF.ply');
+% pcwrite(bunnyR, 'bunnyR.ply');

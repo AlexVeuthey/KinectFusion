@@ -1,7 +1,7 @@
-function [ transform, newData ] = alignPointClouds( oldData, newFrame, metric )
+function [ transform ] = alignPointClouds( newFrame, oldData, metric )
 %ALIGN_POINT_CLOUDS Aligns the new frame to the data
 %   "metric" variable can be either 'pointToPlane' or 'pointToPoint'
 
-[transform, newData] = pcregrigid(oldData, newFrame, 'Metric', metric);
+transform = pcregrigid(newFrame, oldData, 'Metric', metric);
 
 end

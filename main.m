@@ -10,8 +10,6 @@ addpath(genpath('measurement'));
 addpath(genpath('utils'));
 addpath(genpath('data'));
 
-A_batchN = 1;
-
 %% 1. Input section
 
 % This section will mainly consist of setting up arguments (size,
@@ -21,7 +19,7 @@ A_batchN = 1;
 % arguments, particularly the choice of the point-cloud file(s) to load as
 % well as possible additionnal constraints.
 
-B_ptCloud = pcread('bun_zipper.ply');
+A_ptCloud = pcread('bun_zipper.ply');
 
 rot = [
     1   0               0               0 
@@ -31,7 +29,15 @@ rot = [
     ];
 
 transform = affine3d(rot);
-B_ptCloud = pctransform(B_ptCloud,transform);
+A_ptCloud = pctransform(A_ptCloud,transform);
+
+% Batch 1 has 25
+% Batch 2 has 50
+% Batch 3 has 10
+% Batch 4 has 50
+
+A_batchN = 2;
+A_batchS = 10;
 
 clear rot transform
 
@@ -41,7 +47,7 @@ clear rot transform
 % retrieve the measurements (mostly vertex and normal information) of the
 % point cloud file(s) present in the input section.
 
-[ C_normal_maps, C_vertex_maps ] = measurement(B_ptCloud, 1);
+[ B_normal_maps, B_vertex_maps ] = measurement(A_ptCloud, 0);
 
 %% 3. Pose estimation section
 
@@ -51,37 +57,53 @@ clear rot transform
 % perform this task.
 
 % JUST A TEST TO SHOW A PTCLOUD FROM KINECT DATA
-% pathName = batchAndNumberToPath(batchN,25);
+% pathName = batchAndNumberToPath(A_batchN,25);
 % 
-% B_ptCloud = pcread(pathName);
+% C_ptCloud = pcread(pathName);
 % 
-% pcshow(B_ptCloud,'verticalAxis','Y'); xlabel('x'); ylabel('y'); zlabel('z');
+% pcshow(C_ptCloud,'verticalAxis','Y'); xlabel('x'); ylabel('y'); zlabel('z');
 % 
 % clear pathName
 
-% TAKES A LOT OF TIME
-% batch = batch2cell(A_batchN, 25);
-% 
-% [D_transforms, D_fused] = pose_estimation(batch);
-% 
-% clear batch
+% FUSION! TAKES A LOT OF TIME
+batch = batch2cell(A_batchN, A_batchS);
 
-% % Saving the fused depth-map
-% pcwrite(D_fused, 'D_fused.ply');
+[C_transforms, C_fused] = pose_estimation(batch);
+
+clear batch
+
+% SAVING VALUES
+% Saving the fused depth-map
+pcwrite(C_fused, 'C_fused.ply');
+
+% Saving the transforms data from data-to-frame
+save('C_transforms', 'C_transforms');
+
+downsampledFusion = pcdownsample(C_fused, 'random', 10/100);
+
+figure;
+pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
+
+% BUNNY TEST
+% k1 = pcread('bunnyF.ply');
+% k2 = pcread('bunnyR.ply');
 % 
-% % Saving the transforms data from data-to-frame
-% save('D_transforms', 'D_transforms');
-
-k1 = pcread('kinect25.ply');
-k2 = pcread('kinect1.ply');
-
-fused = pcread('D_fused.ply');
-figure(1);
-pcshow(fused);
-figure(2);
-pcshow(k1);
-figure(3);
-pcshow(k2);
+% [transform, kA] = pcregrigid(k2, k1, 'Metric', 'pointToPlane');
+% 
+% merged = pcmerge(k1, kA, 0.001);
+% 
+% figure;
+% pcshow(kA);
+% title('transformed PC - k2');
+% figure;
+% pcshow(k1);
+% title('fixed PC - k1');
+% figure;
+% pcshow(k2);
+% title('moving PC - k2');
+% figure;
+% pcshow(merged);
+% title('merged PC');
 
 %% 4. Reconstruction section
 

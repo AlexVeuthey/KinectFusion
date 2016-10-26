@@ -21,6 +21,8 @@ xlimits = [0 1];
 ylimits = [0 1];
 zlimits = [0 1];
 
+nFrames = 50;
+
 % plot the frame captured
 % player = pcplayer(xlimits, ylimits, zlimits);
 
@@ -31,8 +33,8 @@ xlabel(player.Axes,'X (m)');
 ylabel(player.Axes,'Y (m)');
 zlabel(player.Axes,'Z (m)');
 
-% acquire 500 frames
-for i = 1:25
+% acquire n frames
+for i = 1:nFrames
    colorImage = step(colorDevice);  
    depthImage = step(depthDevice);
  
