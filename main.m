@@ -31,14 +31,6 @@ rot = [
 transform = affine3d(rot);
 A_ptCloud = pctransform(A_ptCloud,transform);
 
-% Batch 1 has 25
-% Batch 2 has 50
-% Batch 3 has 10
-% Batch 4 has 50
-
-A_batchN = 2;
-A_batchS = 10;
-
 clear rot transform
 
 %% 2. Measurement section
@@ -65,8 +57,16 @@ clear rot transform
 % 
 % clear pathName
 
+% Batch 1 has 25
+% Batch 2 has 50
+% Batch 3 has 10
+% Batch 4 has 50
+
+C_batchN = 2;
+C_batchS = 2;
+
 % FUSION! TAKES A LOT OF TIME
-batch = batch2cell(A_batchN, A_batchS);
+batch = batch2cell(C_batchN, C_batchS);
 
 [C_transforms, C_fused] = pose_estimation(batch);
 
@@ -79,7 +79,7 @@ pcwrite(C_fused, 'C_fused.ply');
 % Saving the transforms data from data-to-frame
 save('C_transforms', 'C_transforms');
 
-downsampledFusion = pcdownsample(C_fused, 'random', 10/100);
+downsampledFusion = pcdownsample(C_fused, 'random', 100/100);
 
 figure;
 pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
