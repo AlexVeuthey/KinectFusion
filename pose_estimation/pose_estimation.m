@@ -31,7 +31,7 @@ for i = 2:size
     downsampledNewFrame = pcdownsample(newFrame, 'random', 0.05);
     
     % ALIGN, TRANSFORM and MERGE for new frame and old data
-    transforms{i} = alignPointClouds(downsampledNewFrame, pcdownsample(fusedFrames, 'random', 0.05*(1/5*i)), metric);
+    transforms{i} = alignPointClouds(downsampledNewFrame, pcdownsample(fusedFrames, 'random', 0.05*(1/2*i)), metric);
     alignedNewFrame = pctransform(newFrame, transforms{i});
     fusedFrames = pcmerge(fusedFrames, alignedNewFrame, 0.001);
 end

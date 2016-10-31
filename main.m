@@ -63,7 +63,7 @@ clear rot transform
 % Batch 4 has 50
 
 C_batchN = 2;
-C_batchS = 2;
+C_batchS = 3;
 
 % FUSION! TAKES A LOT OF TIME
 batch = batch2cell(C_batchN, C_batchS);
