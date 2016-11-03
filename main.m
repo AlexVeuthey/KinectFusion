@@ -10,6 +10,8 @@ addpath(genpath('measurement'));
 addpath(genpath('utils'));
 addpath(genpath('data'));
 
+figN = 1;
+
 %% 1. Input section
 
 % This section will mainly consist of setting up arguments (size,
@@ -19,27 +21,13 @@ addpath(genpath('data'));
 % arguments, particularly the choice of the point-cloud file(s) to load as
 % well as possible additionnal constraints.
 
-A_ptCloud = pcread('bun_zipper.ply');
-
-rot = [
-    1   0               0               0 
-    0   cos(3*pi/2)     -sin(3*pi/2)    0
-    0   sin(3*pi/2)     cos(3*pi/2)     0
-    0   0               0               1
-    ];
-
-transform = affine3d(rot);
-A_ptCloud = pctransform(A_ptCloud,transform);
-
-clear rot transform
-
 %% 2. Measurement section
 
 % This section will call the methods of the measurement folder, in order to
 % retrieve the measurements (mostly vertex and normal information) of the
 % point cloud file(s) present in the input section.
 
-[ B_normal_maps, B_vertex_maps ] = measurement(A_ptCloud, 0);
+% [ B_normal_maps, B_vertex_maps ] = measurement(A_ptCloud, 0);
 
 %% 3. Pose estimation section
 
@@ -48,62 +36,33 @@ clear rot transform
 % point-clouds. The methods will use (maybe different) ICP algorithm(s) to
 % perform this task.
 
-% JUST A TEST TO SHOW A PTCLOUD FROM KINECT DATA
-% pathName = batchAndNumberToPath(A_batchN,25);
-% 
-% C_ptCloud = pcread(pathName);
-% 
-% pcshow(C_ptCloud,'verticalAxis','Y'); xlabel('x'); ylabel('y'); zlabel('z');
-% 
-% clear pathName
-
 % Batch 1 has 25
 % Batch 2 has 50
 % Batch 3 has 10
 % Batch 4 has 50
 
-C_batchN = 2;
-C_batchS = 3;
+batchN = 2;
+batchS = 3;
 
-% FUSION! TAKES A LOT OF TIME
-batch = batch2cell(C_batchN, C_batchS);
+% FUSION!
+batch = batch2cell(batchN, batchS);
 
-[C_transforms, C_fused] = pose_estimation(batch);
+[transforms, fused] = fuseFrames(batch, 0.01, 0.001);
 
 clear batch
 
 % SAVING VALUES
 % Saving the fused depth-map
-pcwrite(C_fused, 'C_fused.ply');
+% pcwrite(fused, 'fused.ply');
 
 % Saving the transforms data from data-to-frame
-save('C_transforms', 'C_transforms');
+% save('transforms', 'transforms');
 
-downsampledFusion = pcdownsample(C_fused, 'random', 100/100);
+downsampledFusion = pcdownsample(fused, 'random', 1);
 
-figure;
+figure(figN);
+figN = figN + 1;
 pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
-
-% BUNNY TEST
-% k1 = pcread('bunnyF.ply');
-% k2 = pcread('bunnyR.ply');
-% 
-% [transform, kA] = pcregrigid(k2, k1, 'Metric', 'pointToPlane');
-% 
-% merged = pcmerge(k1, kA, 0.001);
-% 
-% figure;
-% pcshow(kA);
-% title('transformed PC - k2');
-% figure;
-% pcshow(k1);
-% title('fixed PC - k1');
-% figure;
-% pcshow(k2);
-% title('moving PC - k2');
-% figure;
-% pcshow(merged);
-% title('merged PC');
 
 %% 4. Reconstruction section
 
