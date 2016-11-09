@@ -2,8 +2,6 @@
 
 % This section will setup Matlab to work with the folder architecture used.
 
-addpath(genpath('surface_prediction'));
-addpath(genpath('reconstruction'));
 addpath(genpath('pose_estimation'));
 addpath(genpath('measurement'));
 
@@ -45,11 +43,11 @@ batchN = 2;
 batchS = 3;
 
 % FUSION!
-batch = batch2cell(batchN, batchS);
-
-[transforms, fused] = fuseFrames(batch, 0.01, 0.001);
-
-clear batch
+% batch = batch2cell(batchN, batchS);
+% 
+% [transforms, fused] = fuseFrames(batch, 0.01, 0.001);
+% 
+% clear batch
 
 % SAVING VALUES
 % Saving the fused depth-map
@@ -58,11 +56,25 @@ clear batch
 % Saving the transforms data from data-to-frame
 % save('transforms', 'transforms');
 
-downsampledFusion = pcdownsample(fused, 'random', 1);
+% downsampledFusion = pcdownsample(fused, 'random', 1);
+% 
+% figure(figN);
+% figN = figN + 1;
+% pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
 
-figure(figN);
-figN = figN + 1;
-pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
+b1 = pcread('bun000.ply');
+b2 = pcread('bun045.ply');
+b3 = pcread('bun090.ply');
+
+[t, aligned1] = pcregrigid(b2, b1, 'Metric', 'pointToPlane');
+
+merged1 = pcmerge(b1, aligned1, 0.0007);
+
+[t, aligned2] = pcregrigid(b3, merged1, 'Metric', 'pointToPlane');
+
+merged2 = pcmerge(merged1, aligned2, 0.0007);
+
+pcshow(merged2);
 
 %% 4. Reconstruction section
 
