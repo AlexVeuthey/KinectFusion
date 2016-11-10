@@ -39,8 +39,8 @@ figN = 1;
 % Batch 3 has 10
 % Batch 4 has 50
 
-batchN = 2;
-batchS = 3;
+% batchN = 2;
+% batchS = 3;
 
 % FUSION!
 % batch = batch2cell(batchN, batchS);
@@ -66,15 +66,37 @@ b1 = pcread('bun000.ply');
 b2 = pcread('bun045.ply');
 b3 = pcread('bun090.ply');
 
-[t, aligned1] = pcregrigid(b2, b1, 'Metric', 'pointToPlane');
+q1 = b1.Location;
+s = size(q1);
+q11 = double(reshape(q1, s(2), s(1)));
+p1 = b2.Location;
+s = size(p1);
+p11 = double(reshape(p1, s(2), s(1)));
 
-merged1 = pcmerge(b1, aligned1, 0.0007);
+[TR1, TT1, aligned1] = icp(q11, p11);
 
-[t, aligned2] = pcregrigid(b3, merged1, 'Metric', 'pointToPlane');
+transform1 = transformFromRotAndTrans(TR1, TT1);
+ 
+aligned = pctransform(b2, transform1);
+s = size(aligned1);
+aligned2 = reshape(aligned1, s(2), s(1));
 
-merged2 = pcmerge(merged1, aligned2, 0.0007);
+aligned2 = pointCloud(aligned2);
 
-pcshow(merged2);
+merged1 = pcmerge(b1, aligned, 0.0007);
+
+% [TR2, TT2] = icp(merged1, b3);
+% 
+% merged2 = pcmerge(merged1, aligned2, 0.0007);
+
+pcshow(merged1);
+
+% FAST ICP TEST
+% b1.Normal = pcnormals(b1);
+% b2.Normal = pcnormals(b2);
+% b3.Normal = pcnormals(b3);
+% 
+% pose2 = icp_mod_point_plane_pyr(b2.Location, b2.Normal, b3.Location, b3.Normal, 0.05, 100, 3, 1, 8, 0, 0);
 
 %% 4. Reconstruction section
 
