@@ -39,22 +39,27 @@ figN = 1;
 % Batch 3 has 10
 % Batch 4 has 50
 
-% batchN = 2;
-% batchS = 3;
+batchN = 2;
+batchS = 2;
 
 % FUSION!
-% batch = batch2cell(batchN, batchS);
-% 
-% [transforms, fused] = fuseFrames(batch, 0.01, 0.001);
-% 
-% clear batch
+batch = batch2cell(batchN, batchS);
+
+[transforms, fused] = fuseFrames(batch, 0.01, 0.001);
+
+clear batch
+
+% timings: 3 frames ~= 2.5 seconds
+% timings: 2 frames ~= 1.3 seconds
 
 % SAVING VALUES
-% Saving the fused depth-map
+% % Saving the fused depth-map
 % pcwrite(fused, 'fused.ply');
-
-% Saving the transforms data from data-to-frame
+% 
+% % Saving the transforms data from data-to-frame
 % save('transforms', 'transforms');
+
+pcshow(fused, 'verticalAxis', 'Y');
 
 % downsampledFusion = pcdownsample(fused, 'random', 1);
 % 
@@ -62,34 +67,34 @@ figN = 1;
 % figN = figN + 1;
 % pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
 
-b1 = pcread('bun000.ply');
-b2 = pcread('bun045.ply');
-b3 = pcread('bun090.ply');
-
-q1 = b1.Location;
-s = size(q1);
-q11 = double(reshape(q1, s(2), s(1)));
-p1 = b2.Location;
-s = size(p1);
-p11 = double(reshape(p1, s(2), s(1)));
-
-[TR1, TT1, aligned1] = icp(q11, p11);
-
-transform1 = transformFromRotAndTrans(TR1, TT1);
- 
-aligned = pctransform(b2, transform1);
-s = size(aligned1);
-aligned2 = reshape(aligned1, s(2), s(1));
-
-aligned2 = pointCloud(aligned2);
-
-merged1 = pcmerge(b1, aligned, 0.0007);
+% b1 = pcread('bun000.ply');
+% b2 = pcread('bun045.ply');
+% b3 = pcread('bun090.ply');
+% 
+% q1 = b1.Location;
+% s = size(q1);
+% q11 = double(reshape(q1, s(2), s(1)));
+% p1 = b2.Location;
+% s = size(p1);
+% p11 = double(reshape(p1, s(2), s(1)));
+% 
+% [TR1, TT1, aligned1] = icp(q11, p11);
+% 
+% transform1 = transformFromRotAndTrans(TR1, TT1);
+%  
+% aligned = pctransform(b2, transform1);
+% s = size(aligned1);
+% aligned2 = reshape(aligned1, s(2), s(1));
+% 
+% aligned2 = pointCloud(aligned2);
+% 
+% merged1 = pcmerge(b1, aligned, 0.0007);
 
 % [TR2, TT2] = icp(merged1, b3);
 % 
 % merged2 = pcmerge(merged1, aligned2, 0.0007);
-
-pcshow(merged1);
+% 
+% pcshow(merged1);
 
 % FAST ICP TEST
 % b1.Normal = pcnormals(b1);
