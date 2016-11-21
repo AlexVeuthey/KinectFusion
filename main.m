@@ -41,7 +41,7 @@ figN = 1;
 
 batchN = 8;
 batchO = 1;
-batchS = 25;
+batchS = 10;
 
 % FUSION!
 batch = batch2cell(batchN, batchO, batchS);
