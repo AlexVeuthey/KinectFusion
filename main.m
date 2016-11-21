@@ -39,9 +39,9 @@ figN = 1;
 % Batch 3 has 10
 % Batch 4 has 50
 
-batchN = 6;
-batchO = 9;
-batchS = 10;
+batchN = 8;
+batchO = 1;
+batchS = 25;
 
 % FUSION!
 batch = batch2cell(batchN, batchO, batchS);
@@ -55,10 +55,10 @@ clear batch
 
 % SAVING VALUES
 % Saving the fused depth-map
-pcwrite(fused, 'fused.ply');
+% pcwrite(fused, 'fused.ply');
 
 % Saving the transforms data from data-to-frame
-save('transforms', 'transforms');
+% save('transforms', 'transforms');
 
 % pcshow(fused, 'verticalAxis', 'Y');
 
