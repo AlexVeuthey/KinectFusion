@@ -39,11 +39,12 @@ figN = 1;
 % Batch 3 has 10
 % Batch 4 has 50
 
-batchN = 2;
-batchS = 2;
+batchN = 6;
+batchO = 9;
+batchS = 10;
 
 % FUSION!
-batch = batch2cell(batchN, batchS);
+batch = batch2cell(batchN, batchO, batchS);
 
 [transforms, fused] = fuseFrames(batch, 0.01, 0.001);
 
@@ -53,19 +54,19 @@ clear batch
 % timings: 2 frames ~= 1.3 seconds
 
 % SAVING VALUES
-% % Saving the fused depth-map
-% pcwrite(fused, 'fused.ply');
-% 
-% % Saving the transforms data from data-to-frame
-% save('transforms', 'transforms');
+% Saving the fused depth-map
+pcwrite(fused, 'fused.ply');
 
-pcshow(fused, 'verticalAxis', 'Y');
+% Saving the transforms data from data-to-frame
+save('transforms', 'transforms');
 
-% downsampledFusion = pcdownsample(fused, 'random', 1);
-% 
-% figure(figN);
-% figN = figN + 1;
-% pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
+% pcshow(fused, 'verticalAxis', 'Y');
+
+downsampledFusion = pcdownsample(fused, 'random', 1);
+
+figure(figN);
+figN = figN + 1;
+pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
 
 % b1 = pcread('bun000.ply');
 % b2 = pcread('bun045.ply');

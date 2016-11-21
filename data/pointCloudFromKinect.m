@@ -1,27 +1,27 @@
 
 % setup the devices for color and depth
-colorDevice = imaq.VideoDevice('kinect',1);
+% colorDevice = imaq.VideoDevice('kinect',1);
 depthDevice = imaq.VideoDevice('kinect',2);
 
-release(colorDevice);
+% release(colorDevice);
 release(depthDevice);
 
 % initialize them
-step(colorDevice);
+% step(colorDevice);
 step(depthDevice);
 
 % load one frame
-colorImage = step(colorDevice);
+% colorImage = step(colorDevice);
 depthImage = step(depthDevice);
 
 % create a point cloud from the data
 ptCloud = pcfromkinect(depthDevice,depthImage);
 
-xlimits = [0 1];
-ylimits = [0 1];
-zlimits = [0 1];
+% xlimits = [0 1];
+% ylimits = [0 1];
+% zlimits = [0 1];
 
-nFrames = 50;
+nFrames = 25;
 
 % plot the frame captured
 % player = pcplayer(xlimits, ylimits, zlimits);
@@ -35,10 +35,10 @@ zlabel(player.Axes,'Z (m)');
 
 % acquire n frames
 for i = 1:nFrames
-   colorImage = step(colorDevice);  
+%    colorImage = step(colorDevice);  
    depthImage = step(depthDevice);
  
-   ptCloud = pcfromkinect(depthDevice,depthImage,colorImage);
+   ptCloud = pcfromkinect(depthDevice,depthImage);
    
    str = strcat('kinect', num2str(i));
    
@@ -48,5 +48,5 @@ for i = 1:nFrames
 end
 
 % release the objects
-release(colorDevice);
+% release(colorDevice);
 release(depthDevice);
