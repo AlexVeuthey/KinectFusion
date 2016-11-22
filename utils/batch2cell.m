@@ -1,7 +1,11 @@
-function [ batch ] = batch2cell( batchN, offset, size )
+function [ batch ] = batch2cell( batchN, size, offset )
 %BATCH2STRUCT Creates a cell "batch" from a batch number batchN and
 %size
 %   Detailed explanation goes here
+
+if nargin < 3
+    offset = 1;
+end
 
 batch = cell(size, 1);
 

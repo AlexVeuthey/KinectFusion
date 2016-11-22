@@ -6,7 +6,10 @@ function [ transform, fusedFrame ] = fuseFrames( newFrame, oldFrame, downsampleR
 % if the step argument is not present, or if the value of step is 2
 % (meaning that we are currently fusing the first two frames of a batch),
 % then we do not need to apply the increasing downsampling formula.
-if nargin < 5 || step == 2
+if nargin < 6
+    step = 1/2;
+end
+if step < 3
     step = 1/2;
 end
 
