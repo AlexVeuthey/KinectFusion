@@ -8,6 +8,7 @@ release(depthDevice);
 
 % initialize them
 % step(colorDevice);
+
 step(depthDevice);
 
 % load one frame
