@@ -25,9 +25,12 @@ figN = 1;
 % Batch 8 has 25
 % Batch 9 has 25
 % Batch 10 has 25
+% Batch 11 has 25
+% Batch 12 has 25
+% Batch 13 has 25
 
-batchNumberL = 9;
-batchNumberR = 10;
+batchNumberL = 11;
+batchNumberR = 12;
 batchOffset = 1;
 fusionSize = 25;
 
