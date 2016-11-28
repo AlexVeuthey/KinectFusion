@@ -81,7 +81,7 @@ pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'); zlabel
 % Saving the fused depth-map
 pcwrite(fusedL, 'fusedL.ply');
 pcwrite(fusedR, 'fusedR.ply');
-% pcwrite(fused, 'fused.ply'); % too big...
+% pcwrite(fused, 'fused.ply'); % too big for git
 
 % Saving the transforms data from data-to-frame
 save('transformsL', 'transformsL');
