@@ -1,3 +1,9 @@
 1. fuse globally 2 POV of same scene, then fuse them together
 2. even try moving for the drapes scene
 3. look into point cloud merging instead of voxels
+
+4. translation only for the 2POV of drapes & make them flatter
+5. check correspondances in matlab (if want to focus on large baseline)
+otherwise small movements (5-10cm apart)
+can try with markers to recover the camera rotation/translation and use it in the fusion/alignment (ARtoolkit)
+4 markers => homography

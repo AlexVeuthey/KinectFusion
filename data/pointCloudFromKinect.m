@@ -22,7 +22,7 @@ ptCloud = pcfromkinect(depthDevice,depthImage);
 % ylimits = [0 1];
 % zlimits = [0 1];
 
-nFrames = 25;
+nFrames = 10;
 
 % plot the frame captured
 % player = pcplayer(xlimits, ylimits, zlimits);
