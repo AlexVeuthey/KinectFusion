@@ -29,44 +29,70 @@ figN = 1;
 % Batch 12 has 25
 % Batch 13 has 25
 
-batchNumberL = 11;
-batchNumberR = 12;
+batchNumber1 = 14;
+batchNumber2 = 15;
+batchNumber3 = 16;
+batchNumber4 = 17;
+batchNumber5 = 18;
 batchOffset = 1;
-fusionSize = 25;
+fusionSize = 10;
 
-batchL = batch2cell(batchNumberL, fusionSize);
-batchR = batch2cell(batchNumberR, fusionSize);
+batch1 = batch2cell(batchNumber1, fusionSize);
+batch2 = batch2cell(batchNumber2, fusionSize);
+batch3 = batch2cell(batchNumber3, fusionSize);
+batch4 = batch2cell(batchNumber4, fusionSize);
+batch5 = batch2cell(batchNumber5, fusionSize);
+
+clear batchNumber1
+clear batchNumber2
+clear batchNumber3
+clear batchNumber4
+clear batchNumber5
+clear fusionSize
 
 %% FUSION ! TAKES A LOT OF TIME
 
-[transformsL, fusedL] = fuseBatch(batchL, 0.01, 0.001);
-[transformsR, fusedR] = fuseBatch(batchR, 0.01, 0.001);
+[transforms1, fused1] = fuseBatch(batch1, 0.01, 0.001);
+[transforms2, fused2] = fuseBatch(batch2, 0.01, 0.001);
+[transforms3, fused3] = fuseBatch(batch3, 0.01, 0.001);
+[transforms4, fused4] = fuseBatch(batch4, 0.01, 0.001);
+[transforms5, fused5] = fuseBatch(batch5, 0.01, 0.001);
 
-clear batchL
-clear batchR
+clear batch1
+clear batch2
+clear batch3
+clear batch4
+clear batch5
 
 %% ALTERNATIVE: LOAD FROM FILES
 
-fusedL = pcread('fusedL.ply');
-fusedR = pcread('fusedR.ply');
+fused1 = pcread('fused1.ply');
+fused2 = pcread('fused2.ply');
+fused3 = pcread('fused3.ply');
+fused4 = pcread('fused4.ply');
+fused5 = pcread('fused5.ply');
 
 %% FUSION OF CLEAN VIEWS
 
-[transform, fused] = fuseFrames(fusedL, fusedR, 0.015, 'pointToPlane', 0.001);
+[transform, fused] = fuseFrames(fused1, fused2, 0.03, 'pointToPlane', 0.001);
+
+% [transform, fused] = fuseFrames(fused2, fused3, 0.015, 'pointToPlane', 0.001);
+% [transform, fused] = fuseFrames(fused3, fused4, 0.015, 'pointToPlane', 0.001);
+% [transform, fused] = fuseFrames(fused4, fused5, 0.015, 'pointToPlane', 0.001);
 
 %% SHOWING RESULTS OF INDEPENDENT FUSION (STATIC)
 
-downsampledFusionL = pcdownsample(fusedL, 'random', 0.1);
+downsampledFusion1 = pcdownsample(fused1, 'random', 0.1);
 
 figure(figN);
 figN = figN + 1;
-pcshow(downsampledFusionL, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
+pcshow(downsampledFusion1, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
 
-downsampledFusionR = pcdownsample(fusedR, 'random', 0.1);
+downsampledFusion2 = pcdownsample(fused2, 'random', 0.1);
 
 figure(figN);
 figN = figN + 1;
-pcshow(downsampledFusionR, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
+pcshow(downsampledFusion2, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
 
 %% SHOWING RESULTS OF 2 POV FUSION
 
@@ -79,14 +105,17 @@ pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'); zlabel
 %% SAVING VALUES
 
 % Saving the fused depth-map
-pcwrite(fusedL, 'fusedL.ply');
-pcwrite(fusedR, 'fusedR.ply');
+pcwrite(fused1, 'fused1.ply');
+pcwrite(fused2, 'fused2.ply');
+pcwrite(fused3, 'fused3.ply');
+pcwrite(fused4, 'fused4.ply');
+pcwrite(fused5, 'fused5.ply');
 % pcwrite(fused, 'fused.ply'); % too big for git
 
 % Saving the transforms data from data-to-frame
-save('transformsL', 'transformsL');
-save('transformsR', 'transformsR');
-save('transform', 'transform');
+% save('transformsL', 'transformsL');
+% save('transformsR', 'transformsR');
+% save('transform', 'transform');
 
 
 
