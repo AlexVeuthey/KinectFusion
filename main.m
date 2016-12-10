@@ -15,20 +15,6 @@ figN = 1;
 
 %% BATCH CREATION
 
-% Batch 1 has 25
-% Batch 2 has 50
-% Batch 3 has 10
-% Batch 4 has 50
-% Batch 5 has 25
-% Batch 6 has 25
-% Batch 7 has 25
-% Batch 8 has 25
-% Batch 9 has 25
-% Batch 10 has 25
-% Batch 11 has 25
-% Batch 12 has 25
-% Batch 13 has 25
-
 batchNumber1 = 14;
 batchNumber2 = 15;
 batchNumber3 = 16;
