@@ -4,7 +4,7 @@
 depthDevice = imaq.VideoDevice('kinect',2);
 
 % release(colorDevice);
-release(depthDevice);
+% release(depthDevice);
 
 % initialize them
 % step(colorDevice);
