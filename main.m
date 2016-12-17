@@ -11,8 +11,6 @@ addpath(genpath('measurement'));
 addpath(genpath('utils'));
 addpath(genpath('data'));
 
-figN = 1;
-
 %% BATCH CREATION
 
 batchNumber1 = 14;
@@ -70,22 +68,19 @@ fused5 = pcread('fused5.ply');
 
 downsampledFusion1 = pcdownsample(fused1, 'random', 0.1);
 
-figure(figN);
-figN = figN + 1;
+figure();
 pcshow(downsampledFusion1, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
 
 downsampledFusion2 = pcdownsample(fused2, 'random', 0.1);
 
-figure(figN);
-figN = figN + 1;
+figure();
 pcshow(downsampledFusion2, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'), zlabel('z');
 
 %% SHOWING RESULTS OF 2 POV FUSION
 
 downsampledFusion = pcdownsample(fused, 'random', 0.5);
 
-figure(figN);
-figN = figN + 1;
+figure();
 pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'); zlabel('z');
 
 %% SAVING VALUES

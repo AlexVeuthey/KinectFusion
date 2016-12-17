@@ -1,4 +1,4 @@
-function [  ] = showPointCloud( ptCloud )
+function [  ] = showpc( ptCloud )
 %SHOWPOINTCLOUD Summary of this function goes here
 %   Detailed explanation goes here
 
