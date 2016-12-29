@@ -1,12 +1,19 @@
+clear;
+clc;
+
 % read the 3 translation images
 im1 = imread('data/sl_keyboard/markers_images/keyboard1.jpg');
 im2 = imread('data/sl_keyboard/markers_images/keyboard2.jpg');
-im3 = imread('data/sl_keyboard/markers_images/keyboard3.jpg');
+% im3 = imread('data/sl_keyboard/markers_images/keyboard3.jpg');
 
 % load the offset values
 load('X_proj_keyboard_1.mat');
 load('X_proj_keyboard_2.mat');
-load('X_proj_keyboard_3.mat');
+% load('X_proj_keyboard_3.mat');
+
+% load the R and T matrices from the calibration
+% load('Calib_proj_12.12.2016.mat', 'R_proj');
+% load('Calib_proj_12.12.2016.mat', 'T_proj');
 
 % select what translation we want to work with
 imL = im1;
@@ -15,6 +22,11 @@ rectL = rect_keyboard_1;
 rectR = rect_keyboard_2;
 pointsL = X_proj_keyboard_1;
 pointsR = X_proj_keyboard_2;
+
+% !!! only do this if the point clouds are also in camera CS in the main
+% file!
+% pointsL = proj2camPoints(pointsL, R_proj, T_proj);
+% pointsR = proj2camPoints(pointsR, R_proj, T_proj);
 
 %get a point on the first image
 f1 = figure(1);
@@ -40,7 +52,10 @@ idxR = [xR - rectR(1), yR - rectR(2)];
 
 % find the real-world CS 3D location for both points and get the
 % translation vector from them
-posL = pointsL(idxL(1), idxL(2), :);
-posR = pointsR(idxR(1), idxR(2), :);
+% we need to use the 2nd index for the vertical axis and inversely
+posL = pointsL(idxL(2), idxL(1), :);
+posR = pointsR(idxR(2), idxR(1), :);
 vector = [posL(1) - posR(1), posL(2) - posR(2), posL(3) - posR(3)];
+
+save('vector1to2.mat', 'vector');
 

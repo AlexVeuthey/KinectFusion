@@ -16,7 +16,6 @@ addpath(genpath('data'));
 % 1st step: apply the translation to the second point cloud
 
 load('vector1to2.mat');
-
 t = [   1           0           0           0 
         0           1           0           0
         0           0           1           0
@@ -37,13 +36,21 @@ clear t
 % pcL = pointCloud(pointsL');
 % pcR = pointCloud(pointsR');
 
-pcL = pcread('keyboard1c.ply');
-pcR = pcread('keyboard2c.ply');
+pcL = pcread('k1c.ply');
+pcR = pcread('k2c.ply');
 
-pcR = pctransform(pcR, transform);
+% load the R and T matrices from the calibration
+% load('Calib_proj_12.12.2016.mat', 'R_proj');
+% load('Calib_proj_12.12.2016.mat', 'T_proj');
+
+% switch to Camera CS (!!! need to do the same for the vector creation)
+% pcL = proj2cam(pcL, R_proj, T_proj);
+% pcR = proj2cam(pcR, R_proj, T_proj);
+
+pcRt = pctransform(pcR, transform);
 
 % 3rd step: apply the fusion algorithm (ICP + merging) on the point clouds
-[~, pcFused] = fuseFrames(pcL, pcR, 0.02, 'pointToPlane', 0.001);
+[~, pcFused] = fuseFrames(pcL, pcRt, 0.3, 'pointToPlane', 0.001);
 
 showpc(pcFused, 0.1);
 
