@@ -52,7 +52,7 @@ idxR = [xR - rectR(1), yR - rectR(2)];
 
 % find the real-world CS 3D location for both points and get the
 % translation vector from them
-% we need to use the 2nd index for the vertical axis and inversely
+% we need to use the 2nd index for the vertical axis
 posL = pointsL(idxL(2), idxL(1), :);
 posR = pointsR(idxR(2), idxR(1), :);
 vector = [posL(1) - posR(1), posL(2) - posR(2), posL(3) - posR(3)];
