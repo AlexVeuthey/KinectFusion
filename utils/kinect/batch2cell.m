@@ -1,6 +1,5 @@
 function [ batch ] = batch2cell( batchN, size, offset )
-%BATCH2STRUCT Creates a cell "batch" from a batch number batchN and
-%size
+%BATCH2CELL Creates a cell "batch" of Kinect depth frames
 %   Detailed explanation goes here
 
 if nargin < 3

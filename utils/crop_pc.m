@@ -1,4 +1,4 @@
-function [ ptCloudOut ] = croppc( ptCloudIn, var, m )
+function [ ptCloudOut ] = crop_pc( ptCloudIn, var, m )
 %CROPPOINTCLOUD Summary of this function goes here
 %   Detailed explanation goes here
 

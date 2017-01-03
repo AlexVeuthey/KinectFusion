@@ -1,4 +1,4 @@
-function [ path ] = batchAndNumberToPath( batchN, n )
+function [ path ] = batch2path( batchN, n )
 %BATCHTOPATH Summary of this function goes here
 %   Detailed explanation goes here
 

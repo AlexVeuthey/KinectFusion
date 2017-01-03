@@ -5,8 +5,8 @@
 clear;
 clc;
 
-addpath(genpath('pose_estimation'));
-addpath(genpath('measurement'));
+addpath(genpath('alignment'));
+addpath(genpath('point_cloud_manip'));
 
 addpath(genpath('utils'));
 addpath(genpath('data'));
@@ -85,7 +85,7 @@ pcshow(downsampledFusion, 'verticalAxis', 'Y'); xlabel('x'); ylabel('y'); zlabel
 
 %% SAVING VALUES
 
-% Saving the fused depth-map
+% Saving the fused depth-maps
 pcwrite(fused1, 'fused1.ply');
 pcwrite(fused2, 'fused2.ply');
 pcwrite(fused3, 'fused3.ply');

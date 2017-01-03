@@ -3,8 +3,8 @@
 clear;
 clc;
 
-addpath(genpath('pose_estimation'));
-addpath(genpath('measurement'));
+addpath(genpath('alignment'));
+addpath(genpath('point_cloud_manip'));
 
 addpath(genpath('utils'));
 addpath(genpath('data'));
