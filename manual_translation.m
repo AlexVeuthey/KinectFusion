@@ -23,11 +23,6 @@ rectR = rect_keyboard_2;
 pointsL = X_proj_keyboard_1;
 pointsR = X_proj_keyboard_2;
 
-% !!! only do this if the point clouds are also in camera CS in the main
-% file!
-% pointsL = proj2camPoints(pointsL, R_proj, T_proj);
-% pointsR = proj2camPoints(pointsR, R_proj, T_proj);
-
 %get a point on the first image
 f1 = figure(1);
 imshow(imL);

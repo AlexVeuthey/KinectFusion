@@ -1,4 +1,4 @@
-function [ R, T ] = findRT( pointsL, pointsR )
+function [ R, T ] = find_RT( pointsL, pointsR )
 %FINDRT Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -18,7 +18,7 @@ for i = 1:s
     H = H + centeredL(i,:)'*centeredR(i,:);
 end
 
-[U,~,V] = svd(H);
+[U,S,V] = svd(H');
 
 if det(V) < 0
     V(:,3) = -V(:,3);
@@ -26,6 +26,6 @@ end
 
 R = V*U';
     
-T = -R*centroidL' + centroidR';
+T = R*(-centroidL') + centroidR';
 
 end

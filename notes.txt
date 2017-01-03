@@ -1,17 +1,3 @@
-1. recover transform using manual (for translation) or marker based approach
-2. apply the transform to one of the point clouds
-3. ICP between the two point pre-aligned point clouds
-4. fusion between the ICP-aligned point clouds
-
-method 1: manual (translation only)
-- recover translation with color images
-- find real-world translation using correspondances of points
-
-method 2: automatic (marker-based) transform recovery
-- setup ARtoolkit for multiple markers recognition
-- recover (output from ARtoolkit) the transform between 2 frames
-
-method 3!!! automatic feature matching w/o markers!
-http://www.vlfeat.org/applications/sift-mosaic-code.html
-
-also check mail from Marjan for the data & explanations on format & correspondances
+- fix pre-alignment discrepancy
+- try teapot data with order change
+- fix ICP alignment problem (use other ICP?)

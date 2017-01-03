@@ -143,7 +143,7 @@ matches2 = [f2(1, matches(2, ok)); f2(2, matches(2, ok))];
 % figure(2) ; clf ;
 % imagesc(mosaic) ; axis image off ;
 % title('Mosaic') ;
-
-if nargout == 0, clear mosaic ; end
+% 
+% if nargout == 0, clear mosaic ; end
 
 end
