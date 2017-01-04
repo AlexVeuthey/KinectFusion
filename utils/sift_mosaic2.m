@@ -10,7 +10,7 @@ function [ matches1, matches2 ] = sift_mosaic2(im1, im2)
 
 % AUTORIGHTS
 
-run('D:/Documents/KinectFusion/utils/vlfeat/toolbox/vl_setup');
+run('D:/Documents/KinectFusion/alignment/vlfeat/toolbox/vl_setup');
 
 % make single
 im1 = im2single(im1);

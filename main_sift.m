@@ -42,30 +42,24 @@ posR = find_points(pointsR, matchesR);
 
 % finds the R and T transform that maps POV R to POV L
 [R, T] = find_RT(posR, posL);
-transform = make_transform(R, T);
+transformSIFT = make_transform(R, T);
 
 %% FUSION
 
 % load data (NEEDS TO MATCH PREVIOUS PART!)
 pcL = pcread('k1f.ply');
 pcR = pcread('k2f.ply');
-pcRt = pctransform(pcR, transform);
+pcRt = pctransform(pcR, transformSIFT);
 
 % apply the fusion algorithm on the pre-aligned point clouds
-% [~, pcFused] = fuseFrames(pcL, pcRt, 0.08, 'pointToPlane', 0.001);
-
-% No-ICP fusion with trivial fusion (doubles size!)
-% pcFused = fuse_pc(pcL, pcRt);
-
-% No-ICP fusion with pcmerge
-pcFused = pcmerge(pcL, pcRt, 0.001);
+[transformICP, pcFused] = fuse_viewpoints(pcL, pcRt, 0);
 
 figure;
-show_pc(pcFused, 0.2); title('Fusion result');
+show_pc(pcFused, 0.3); title('Fusion result');
 
-figure;
-subplot(1,3,1); show_pc(pcL, 0.1); title('L');
-subplot(1,3,2); show_pc(pcRt, 0.1); title('R pre-aligned');
-subplot(1,3,3); show_pc(pcR, 0.1); title('R');
+% figure;
+% subplot(1,3,1); show_pc(pcL, 0.1); title('L');
+% subplot(1,3,2); show_pc(pcRt, 0.1); title('R pre-aligned');
+% subplot(1,3,3); show_pc(pcR, 0.1); title('R');
 
 
