@@ -13,17 +13,21 @@ addpath(genpath('data'));
 
 % load data
 % 1->2, 2->3 are recommended translation
-% 1->4 is recommended rotation
-% 1->5, 4->5 are heavy rotations
-imL = imread('keyboard1.jpg');
-imR = imread('keyboard2.jpg');
-load('X_proj_keyboard_1.mat');
-load('X_proj_keyboard_2.mat');
-rectL = rect_keyboard_1;
-rectR = rect_keyboard_2;
-pointsL = X_proj_keyboard_1;
-pointsR = X_proj_keyboard_2;
-clear -regexp rect_keyboard X_proj ;
+% 4->5 is recommended rotation
+% 1->4, 1->5 are heavy rotations
+indL = 1;
+indR = 2;
+imL = imread(strcat('keyboard',num2str(indL),'.jpg'));
+imR = imread(strcat('keyboard',num2str(indR),'.jpg'));
+dataL = load(strcat('keyboard_',num2str(indL),'.mat'));
+dataL = dataL.s;
+dataR = load(strcat('keyboard_',num2str(indR),'.mat'));
+dataR = dataR.s;
+rectL = dataL.rect;
+rectR = dataR.rect;
+pointsL = dataL.points;
+pointsR = dataR.points;
+clear dataL dataR ;
 imL = imcrop(imL, rectL);
 imR = imcrop(imR, rectR);
 
@@ -46,17 +50,19 @@ transformSIFT = make_transform(R, T);
 
 %% FUSION
 
-% load data (NEEDS TO MATCH PREVIOUS PART!)
-pcL = pcread('k1f.ply');
-pcR = pcread('k2f.ply');
+% load point clouds
+pcL = pcread(strcat('k',num2str(indL),'f.ply'));
+pcR = pcread(strcat('k',num2str(indR),'f.ply'));
 pcRt = pctransform(pcR, transformSIFT);
 
 % apply the fusion algorithm on the pre-aligned point clouds
 [transformICP, pcFused] = fuse_viewpoints(pcL, pcRt, 0);
 
+% shows the result
 figure;
 show_pc(pcFused, 0.3); title('Fusion result');
 
+% shows the pre-alignment done by SIFT
 % figure;
 % subplot(1,3,1); show_pc(pcL, 0.1); title('L');
 % subplot(1,3,2); show_pc(pcRt, 0.1); title('R pre-aligned');
