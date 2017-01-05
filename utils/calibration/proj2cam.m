@@ -1,6 +1,6 @@
 function [ ptCloudOut ] = proj2cam( ptCloudIn, R, T )
-%PROJ2CAM Summary of this function goes here
-%   Detailed explanation goes here
+%PROJ2CAM Transforms the point cloud into camera coordinates
+%   Formulas from email.
 
 locationsProj = ptCloudIn.Location;
 

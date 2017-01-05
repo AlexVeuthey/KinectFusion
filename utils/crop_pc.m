@@ -1,6 +1,6 @@
 function [ ptCloudOut ] = crop_pc( ptCloudIn, var, m )
-%CROPPOINTCLOUD Summary of this function goes here
-%   Detailed explanation goes here
+%CROPPOINTCLOUD Helper function to clean up the point clouds
+%   Cuts the data outside of m +/- var (different in the 3 directions!)
 
 locA = ptCloudIn.Location;
 

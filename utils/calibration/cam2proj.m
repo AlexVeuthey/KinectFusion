@@ -1,6 +1,6 @@
 function [ ptCloudOut ] = cam2proj( ptCloudIn, R, T )
-%CAM2PROJ Summary of this function goes here
-%   Detailed explanation goes here
+%CAM2PROJ Transforms the point cloud into projector CS
+%   Formula from email
 
 locationsCam = ptCloudIn.Location;
 

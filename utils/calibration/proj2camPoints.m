@@ -1,6 +1,6 @@
 function [ pointsCam ] = proj2camPoints( pointsProj, R, T )
-%PROJ2CAMPOINTS Summary of this function goes here
-%   Detailed explanation goes here
+%PROJ2CAMPOINTS Transforms the array of points in camera CS
+%   Formulas from email.
 
 size1 = size(pointsProj, 1);
 size2 = size(pointsProj, 2);

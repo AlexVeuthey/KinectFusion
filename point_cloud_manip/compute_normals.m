@@ -1,7 +1,6 @@
 function [ normal_maps, vertex_maps ] = compute_normals( ptCloud )
 %MEASUREMENT Compute the normal map and vertex map of a point cloud
-%   Can change the spacing between displayed points by passing a
-%   spacing argument.
+%   Trivial
 
 normal_map1 = pcnormals(ptCloud);
 vertex_map1 = ptCloud.Location(:,:,:);

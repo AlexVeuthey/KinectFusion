@@ -1,6 +1,6 @@
 function [ batch ] = batch2cell( batchN, size, offset )
 %BATCH2CELL Creates a cell "batch" of Kinect depth frames
-%   Detailed explanation goes here
+%   Trivial
 
 if nargin < 3
     offset = 1;

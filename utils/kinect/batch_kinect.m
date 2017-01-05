@@ -3,12 +3,8 @@
 % colorDevice = imaq.VideoDevice('kinect',1);
 depthDevice = imaq.VideoDevice('kinect',2);
 
-% release(colorDevice);
-% release(depthDevice);
-
 % initialize them
 % step(colorDevice);
-
 step(depthDevice);
 
 % load one frame
@@ -18,14 +14,8 @@ depthImage = step(depthDevice);
 % create a point cloud from the data
 ptCloud = pcfromkinect(depthDevice,depthImage);
 
-% xlimits = [0 1];
-% ylimits = [0 1];
-% zlimits = [0 1];
-
+% number of desired frames in the batch
 nFrames = 10;
-
-% plot the frame captured
-% player = pcplayer(xlimits, ylimits, zlimits);
 
 player = pcplayer(ptCloud.XLimits,ptCloud.YLimits,ptCloud.ZLimits,...
 	'VerticalAxis','y','VerticalAxisDir','down');
@@ -42,8 +32,9 @@ for i = 1:nFrames
    ptCloud = pcfromkinect(depthDevice,depthImage);
    
    str = strcat('kinect', num2str(i));
-   
-   pcwrite(ptCloud, str, 'PLYFormat', 'binary');
+   % very inefficient! should be done outside of the loop and saved
+   % temporarily in memory
+%    pcwrite(ptCloud, str, 'PLYFormat', 'binary');
  
    view(player,ptCloud);
 end

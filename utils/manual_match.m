@@ -1,6 +1,6 @@
 function [ matchesL, matchesR ] = manual_match( imL, imR )
 %MANUAL_MATCH Find 3 matching points given the 2 associated images
-%   Detailed explanation goes here
+%   Trivial
 
 matchesL = zeros(2,3);
 matchesR = zeros(2,3);

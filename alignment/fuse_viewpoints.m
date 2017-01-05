@@ -1,6 +1,7 @@
 function [ transform, fused_pc ] = fuse_viewpoints( moving, fixed, merge )
-%FUSE_VIEWPOINTS Summary of this function goes here
-%   Detailed explanation goes here
+%FUSE_VIEWPOINTS Simple wrapper for pcregrigid with automatic merging
+%   The inlier ratio is very important for a correct fusion! 0.5 to 0.8
+%   gives good results.
 
 movingD = pcdownsample(moving, 'gridAverage', 1);
 fixedD = pcdownsample(fixed, 'gridAverage', 1);
