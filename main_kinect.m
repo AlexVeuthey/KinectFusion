@@ -11,41 +11,44 @@ addpath(genpath('data'));
 
 %% BATCH CREATION
 
-batchNumber1 = 14;
-batchNumber2 = 15;
-batchNumber3 = 16;
-batchNumber4 = 17;
-batchNumber5 = 18;
-startIndex = 1;
-fusionSize = 10;
+% kinect is moving for batches 1 to 7, static from 8 to 13
+batchN = 9;
+fusionSizeMoving = 10;
+pathMoving = 'data/kinect_multiple/kinect_batch';
 
-batch1 = batch2cell(batchNumber1, fusionSize);
-batch2 = batch2cell(batchNumber2, fusionSize);
-batch3 = batch2cell(batchNumber3, fusionSize);
-batch4 = batch2cell(batchNumber4, fusionSize);
-batch5 = batch2cell(batchNumber5, fusionSize);
+batch = batch2cell(batchN, pathMoving, fusionSizeMoving);
 
-clear batchNumber1
-clear batchNumber2
-clear batchNumber3
-clear batchNumber4
-clear batchNumber5
-clear fusionSize
+% kinct was static for batches 14 to 18 (drapes scene)
+% batchNumber1 = 14;
+% batchNumber2 = 15;
+% batchNumber3 = 16;
+% batchNumber4 = 17;
+% batchNumber5 = 18;
+% fusionSizeStatic = 10;
+% pathStatic = 'data/kinect_translate/kinect_batch';
+% 
+% batch1 = batch2cell(batchNumber1, pathStatic, fusionSizeStatic);
+% batch2 = batch2cell(batchNumber2, pathStatic, fusionSizeStatic);
+% batch3 = batch2cell(batchNumber3, pathStatic, fusionSizeStatic);
+% batch4 = batch2cell(batchNumber4, pathStatic, fusionSizeStatic);
+% batch5 = batch2cell(batchNumber5, pathStatic, fusionSizeStatic);
+% 
+% clear -regexp batchNumber ;
 
 %% STATIC FUSION (takes a bit of time)
 
-% this step fuses the batch of kinect static views into one smoother view
-[transforms1, fused1] = fuseBatch(batch1, 0.01, 0.001);
-[transforms2, fused2] = fuseBatch(batch2, 0.01, 0.001);
-[transforms3, fused3] = fuseBatch(batch3, 0.01, 0.001);
-[transforms4, fused4] = fuseBatch(batch4, 0.01, 0.001);
-[transforms5, fused5] = fuseBatch(batch5, 0.01, 0.001);
+% moving batch fusion
+[~, fused1] = fuseBatch(batch, 0.01, 0.001);
 
-clear batch1
-clear batch2
-clear batch3
-clear batch4
-clear batch5
+% this step fuses the batch of kinect static views into one smoother view
+% [transforms1, fused1] = fuseBatch(batch1, 0.01, 0.001);
+% [transforms2, fused2] = fuseBatch(batch2, 0.01, 0.001);
+% [transforms3, fused3] = fuseBatch(batch3, 0.01, 0.001);
+% [transforms4, fused4] = fuseBatch(batch4, 0.01, 0.001);
+% [transforms5, fused5] = fuseBatch(batch5, 0.01, 0.001);
+
+figure;
+show_pc(fused1, 0.5);
 
 %% ALTERNATIVE: LOAD FROM FILES
 
@@ -58,14 +61,6 @@ fused5 = pcread('fused5.ply');
 %% FUSION OF 2 POV
 
 [transform, fused] = fuseFrames(fused1, fused2, 0.03, 'pointToPlane', 0.001);
-
-%% RESULTS OF STATIC FUSION
-
-figure;
-show_pc(fused1, 0.1);
-
-figure;
-show_pc(fused2, 0.1);
 
 %% RESULTS OF 2 POV FUSION
 

@@ -16,7 +16,7 @@ end
 downsampledNewFrame = pcdownsample(newFrame, 'random', downsampleRate);
 downsampledOldFrame = pcdownsample(oldFrame, 'random', downsampleRate*(1/2*step));
 
-transform = pcregrigid(downsampledNewFrame, downsampledOldFrame, 'Metric', metric);
+transform = pcregrigid(downsampledNewFrame, downsampledOldFrame, 'Metric', metric, 'InlierRatio', 0.5);
 alignedNewFrame = pctransform(newFrame, transform);
 fusedFrame = pcmerge(oldFrame, alignedNewFrame, gridStep);
 
