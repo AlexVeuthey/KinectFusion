@@ -12,7 +12,7 @@ end
 movingD = pcdownsample(moving, 'gridAverage', 1);
 fixedD = pcdownsample(fixed, 'gridAverage', 1);
 
-transform = pcregrigid(movingD, fixedD, 'Metric', 'pointToPlane', 'InlierRatio', 0.7, 'Extrapolate', true);
+transform = pcregrigid(movingD, fixedD, 'Metric', 'pointToPlane', 'InlierRatio', 0.5, 'Extrapolate', true);
 
 movingAligned = pctransform(moving, transform);
 

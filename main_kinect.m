@@ -12,8 +12,8 @@ addpath(genpath('data'));
 %% BATCH CREATION
 
 % kinect is moving for batches 1 to 7, static from 8 to 13
-batchN = 9;
-fusionSizeMoving = 10;
+batchN = 6;
+fusionSizeMoving = 4;
 pathMoving = 'data/kinect_multiple/kinect_batch';
 
 batch = batch2cell(batchN, pathMoving, fusionSizeMoving);
@@ -38,7 +38,7 @@ batch = batch2cell(batchN, pathMoving, fusionSizeMoving);
 %% STATIC FUSION (takes a bit of time)
 
 % moving batch fusion
-[~, fused1] = fuseBatch(batch, 0.01, 0.001);
+[~, fused1] = fuseBatch(batch, 0.1, 0.0001);
 
 % this step fuses the batch of kinect static views into one smoother view
 % [transforms1, fused1] = fuseBatch(batch1, 0.01, 0.001);
@@ -48,7 +48,7 @@ batch = batch2cell(batchN, pathMoving, fusionSizeMoving);
 % [transforms5, fused5] = fuseBatch(batch5, 0.01, 0.001);
 
 figure;
-show_pc(fused1, 0.5);
+show_pc(fused1);
 
 %% ALTERNATIVE: LOAD FROM FILES
 
