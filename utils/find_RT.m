@@ -1,9 +1,9 @@
-function [ R, T ] = find_RT( pointsL, pointsR )
+function [ R, T ] = find_RT( pointsR, pointsL )
 %FINDRT SVD estimation of the rigid transform between two sets of points
 %   Found on http://nghiaho.com/?page_id=671
 %   Original algorithm (ICP) by Besl and McKay, 1992.
 
-s = size(pointsL(:,1));
+s = size(pointsL(:,1),1);
 
 centroidL = [mean(pointsL(:,1)), mean(pointsL(:,2)), mean(pointsL(:,3))];
 centroidR = [mean(pointsR(:,1)), mean(pointsR(:,2)), mean(pointsR(:,3))];
@@ -16,7 +16,7 @@ H = [   0   0   0
         0   0   0   ];
     
 for i = 1:s
-    H = H + centeredL(i,:)'*centeredR(i,:);
+    H = H + centeredR(i,:)'*centeredL(i,:);
 end
 
 [U,~,V] = svd(H);
@@ -27,6 +27,6 @@ end
 
 R = V*U';
     
-T = R*(-centroidL') + centroidR';
+T = R'*(-centroidR') + centroidL';
 
 end
