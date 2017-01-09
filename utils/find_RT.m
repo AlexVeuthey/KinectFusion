@@ -27,6 +27,6 @@ end
 
 R = V*U';
     
-T = R'*(-centroidR') + centroidL';
+T = R*(-centroidR') + centroidL';
 
 end
