@@ -59,8 +59,8 @@ pcRt = pctransform(pcR, transformSIFT);
 [transformICP, pcFused] = fuse_viewpoints(pcRt, pcL, 1, 0.001);
 
 % shows the result
-figure;
-show_pc(pcL, 1); title('Viewpoint L');
+% figure;
+% show_pc(pcL, 1); title('Viewpoint L');
 figure;
 show_pc(pcFused, 1); title('Fusion result');
 
@@ -70,12 +70,12 @@ show_pc(pcFused, 1); title('Fusion result');
 % subplot(1,3,2); show_pc(pcRt, 0.1); title('R pre-aligned');
 % subplot(1,3,3); show_pc(pcR, 0.1); title('R');
 
-% shows the fusion with only SIFT
-siftFused = fuse_pc(pcL, pcRt);
-nothingFused = fuse_pc(pcL, pcR);
-figure;
-subplot(1,2,1); show_pc(nothingFused); title('No algorithm used');
-subplot(1,2,2); show_pc(siftFused); title('SIFT-only fusion result');
+% % shows the fusion with only SIFT
+% siftFused = fuse_pc(pcL, pcRt);
+% nothingFused = fuse_pc(pcL, pcR);
+% figure;
+% subplot(1,2,1); show_pc(nothingFused); title('No algorithm used');
+% subplot(1,2,2); show_pc(siftFused); title('SIFT-only fusion result');
 
 
 
