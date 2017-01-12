@@ -9,7 +9,7 @@ end
 
 ptCloud = pcdownsample(ptCloud, 'random', downsamplingRate);
 
-pcshow(ptCloud, 'verticalAxis', 'y');
+pcshow(ptCloud, 'verticalAxis', 'Z');
 xlabel('X');
 ylabel('Y');
 zlabel('Z');
