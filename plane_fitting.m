@@ -13,7 +13,7 @@ addpath(genpath('data'));
 
 pc = pcread('data/kinect_multiple/kinect_batch6/kinect1.ply');
 
-maxDistance = 0.0001;
+maxDistance = 0.1;
 
 N = 5;
 
@@ -36,7 +36,7 @@ plot(model);
 batch = batch2cell(6, 'data/kinect_multiple/kinect_batch', 4);
 [~, pcF] = fuseBatch(batch, 0.1, 0.01);
 
-maxDistancef = 0.0001;
+maxDistancef = 0.1;
 
 Nf = 5;
 

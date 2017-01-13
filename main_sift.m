@@ -15,8 +15,8 @@ addpath(genpath('data'));
 % 1->2, 2->3 are recommended translation
 % 4->5 is recommended rotation
 % 1->4, 1->5 are heavy rotations
-indL = 4;
-indR = 5;
+indL = 1;
+indR = 2;
 imL = imread(strcat('keyboard',num2str(indL),'.jpg'));
 imR = imread(strcat('keyboard',num2str(indR),'.jpg'));
 dataL = load(strcat('keyboard_',num2str(indL),'.mat'));
